@@ -1,0 +1,136 @@
+@import config
+
+// CUSTOM USER STYLES & IMPORTS
+body
+    background: #283048;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #859398, #283048);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #859398, #283048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+.body
+    width: 60%
+    margin: 0 auto
+    &-inner
+        width: 100%
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        position: relative
+        min-height: 70vh
+
+.monster-image
+    width: 200px
+    height: 200px
+    position: absolute
+    left: 50%
+    margin-right: -50%
+    transform: translateX(-50%)
+    bottom: 0
+    & img
+        width: 100%
+
+
+.menu-inner
+    height: 30vh    
+    background-image: url("../images/dest/bg-menu.png")
+    &_overview
+        background-color: rgba(#000, 0.7)
+        height: 100%
+        position: relative
+
+
+.menu-window
+    width: 90px
+    height: 31px
+    border-radius: 12px
+    text-align: center
+    background-color: #ffffff   
+    margin-bottom: 10px
+    position: absolute
+    left: 25px
+    top: 25px
+
+.damage-window
+    right: 25px
+    left:  inherit
+    &::before
+        content: "";
+        background-image: url("../images/dest/Icon/sword.png")
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        width: 25px
+        height: 25px
+        display: block
+        position: absolute
+        right: 6px
+        top: 4px
+        
+
+.money-window
+    &::before
+        content: ""
+        background-image: url("../images/dest/Icon/stone.png")
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        width: 25px
+        height: 25px
+        display: block
+        position: absolute
+        left: 6px
+        top: 3px
+.nothaveMoney
+        font-size: 16px
+        transition: all .3s ease
+        animation: forwhat .5s ease  forwards
+        color: #ffffff
+        white-space: nowrap
+        z-index: 100
+        
+
+@keyframes forwhat
+    0%
+        transform: translateY(-50px)
+    100%
+        transform: translateY(-70px)
+
+.damage_plus
+    position: absolute
+    right: 25px
+    top: 70px
+
+
+.levels
+    position: absolute
+    top: 25px
+    position: absolute
+    left: 50%
+    margin-right: -50%
+    transform: translateX(-50%)
+    font-size: 24px
+    color: #000000
+    font-weight: 900
+    border:  1px solid #000
+    border-radius: 50%
+    padding-right: 10px
+    padding-left: 10px
+    background-size: cover
+    background-repeat: no-repeat
+    background-position: center
+
+
+.monster_health
+    width: 100px
+    height: 20px
+    background-color: #fff
+    position: absolute
+    position: absolute
+    left: 50%
+    margin-right: -50%
+    transform: translateX(-50%)
+    & span
+        background-color: red
+        width: 100%
+        display: block
+        height: 100%
+        margin-rigth: auto

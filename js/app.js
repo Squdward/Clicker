@@ -2,9 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	function gameStart() {
 
-		// create healt bar
-		// create auto attack bot
-		// create  save system
+
 		let Monster = document.querySelector(".monster-image");
 		let damagPlus = document.querySelector(".damage_plus");
 		let Money = document.querySelector(".money-window");
@@ -23,9 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-		let a = 25;
-		let b = 1;
-			console.log((b / a) * 100 + "%")
+	
 
 		let health = MonstersParams.health
 		/*<--------------------------------------------------------------------> */
@@ -61,34 +57,64 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		}
 
-		function popup(parent, text) {
-			let notHaveMoney = document.createElement("div");
-			notHaveMoney.innerHTML = `${text}`
-			notHaveMoney.classList.add("nothaveMoney");
-			parent.append(notHaveMoney);
-			notHaveMoney.addEventListener("animationend", () => {
-				notHaveMoney.remove();
-			});
+		function popup(parent, text, addClass="defaultPopup") {
+				let popupName = document.createElement("span");
+				popupName.innerHTML = `${text}`;
+				popupName.classList.add(addClass);
+				parent.append(popupName);
+				
+				popupName.addEventListener("animationend", () => {
+					popupName.remove();
+				});
 		}
 
 		function fillbar() {
-			let healtBar = document.querySelector(".monster_health span")
-			healtBar.style.width = (health / MonstersParams.health) * 100 + "%" 
+			/*<!-------------------------------------*/
+			let formule = (health / MonstersParams.health) * 100; 
+			/*<!-------------------------------------*/
+			let healtBar = document.querySelector(".monster_health span");
+			let healtBarOst = document.querySelector(".monster_health__ost");
+	
+
+			healtBar.style.width = formule + "%"
+			healtBarOst.innerHTML = Math.floor(formule) + "%"
 		}
 
 		function killMonster() {
 
 			Money.innerHTML = +Money.textContent + MonstersParams.price
-			popup(Money, `+${MonstersParams.price}` )
+			popup(Money, `+${MonstersParams.price}`, )
+		}
+
+		function critDamage() {
+			health = health - 20
+			
 		}
 
 
+
+		function randomInteger(min, max) {
+			let rand = min + Math.random() * (max + 1 - min);
+				rand = Math.floor(rand)
+			if(rand == 4 ) {
+				critDamage()
+			}
+			else {
+				return false
+			}
+		}
+
+
+	
+
 		Monster.addEventListener("click", () => {
 			health -= player.damage;
-			console.log(health)
+
 			fillbar()
 
+			popup(Monster, `-${Math.floor(player.damage)}`, "takenDamage")
 
+			randomInteger(1, 25)
 			if (health <= 0) {
 				killMonster()
 				newLevel()
@@ -99,19 +125,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		damagPlus.addEventListener("click", () => {
 			let DamageWindow = document.querySelector(".damage-window");
+			let costIncr = document.querySelector(".price");
 		
 
 			if (Money.textContent >= player.cost) {
 				DamageWindow.innerHTML = ++player.damage
 
-				Money.innerHTML = Money.textContent - player.cost
-				player.cost += 10
+				Money.innerHTML = Money.textContent - player.cost;
+
+
+				// 
+				player.cost += 10;
+				costIncr.innerHTML = player.cost
+				// 
+
+
+
 				popup(DamageWindow, "+1")
 			}
 
 			else {
 				if (!document.querySelector(".nothaveMoney")) {
-					popup(DamageWindow, "not enough money")
+					popup(damagPlus, "not enough money", )
 				}
 			}
 		})
